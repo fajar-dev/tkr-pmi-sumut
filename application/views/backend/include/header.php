@@ -13,6 +13,7 @@
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="<?= base_url('assets/') ?>node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= base_url('assets/') ?>node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/') ?>node_modules/summernote/dist/summernote-bs4.css">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url('assets/') ?>assets/css/style.css">
@@ -62,12 +63,12 @@
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link has-dropdown"><i class="fas fa-newspaper"></i><span>Berita</span></a>
                   <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="index-0.html">Tambah Berita</a></li>
-                    <li><a class="nav-link" href="index.html">Data Berita</a></li>
+                    <li><a class="nav-link" href="<?= base_url('admin/tambah_berita') ?>">Tambah Berita</a></li>
+                    <li><a class="nav-link" href="<?= base_url('admin/berita') ?>">Data Berita</a></li>
                   </ul>
                 </li>
-                <li><a class="nav-link" href="blank.html"><i class="far fa-file"></i> <span>Document</span></a></li>
-                <li><a class="nav-link" href="blank.html"><i class="far fa-user"></i> <span>User</span></a></li>
+                <li><a class="nav-link" href="<?= base_url('admin/document') ?>"><i class="far fa-file"></i> <span>Document</span></a></li>
+                <li><a class="nav-link" href="<?= base_url('admin/user') ?>"><i class="far fa-user"></i> <span>User</span></a></li>
               <?php } ?>
 
               <li><a class="nav-link" href="<?= base_url('auth/logout') ?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>

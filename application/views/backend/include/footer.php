@@ -19,26 +19,26 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form action="<?= base_url('auth/ubah_akun') ?>" method="POST">
           <div class="form-group">
             <label>Username</label>
-            <input type="text" name="username" placeholder="Enter Username ..." value="<?= $user['username'] ?>" class="form-control">
+            <input type="text" name="username" placeholder="Enter Username ..." value="<?= $user['username'] ?>" class="form-control" required>
           </div>
           <div class="form-group">
-            <label>Password baru</label>
-            <input type="pasword" name="username" placeholder="Enter New Password ..." class="form-control">
+            <label>ubah Password</label>
+            <input type="password" name="password" placeholder="Enter New Password ..." value="<?= $user['password'] ?>" class="form-control" required>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Simpan perubahan</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Simpan perubahan</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
+<?php if(($_SERVER['PHP_SELF']) == ($_SERVER['SCRIPT_NAME'].'/user/peserta')){ ?> 
 <div class="modal fade" id="peserta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -52,11 +52,11 @@
         <?php echo form_open_multipart('user/tambah_peserta');?>
           <div class="form-group">
             <label>Nama</label>
-            <input type="text" name="nama" placeholder="Nama Peserta ..."  class="form-control">
+            <input type="text" name="nama" placeholder="Nama Peserta ..."  class="form-control" required>
           </div>
           <div class="form-group">
             <label>Jenjang</label>
-            <select class="form-control select2" name="jenjang">
+            <select class="form-control select2" name="jenjang" required>
               <option selected disabled>-- Pilih Jenjang --</option>
               <option value="KSR">KSR</option>
               <option value="TSR">TSR</option>
@@ -67,7 +67,7 @@
           </div>
           <div class="form-group">
             <label>Markas</label>
-            <select class="form-control select2" name="markas">
+            <select class="form-control select2" name="markas" required>
               <option selected disabled>-- Pilih Markas --</option>
               <?php foreach ($markas as $data) { ?>
               <option value="<?= $data->id ?>"><?= $data->name ?></option>
@@ -76,7 +76,7 @@
           </div>
           <div class="form-group">
             <label>Foto</label>
-            <input type="file" name="foto"  class="form-control">
+            <input type="file" name="foto"  class="form-control" required>
             <small>Ekstensi yang diizinkan jpg,png. Max 2MB</small>
           </div>
       </div>
@@ -88,6 +88,83 @@
     </div>
   </div>
 </div>
+<?php } ?>
+
+
+<?php if(($_SERVER['PHP_SELF']) == ($_SERVER['SCRIPT_NAME'].'/admin/user')){ ?> 
+  <div class="modal fade" id="user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <?php echo form_open_multipart('admin/tambah_user');?>
+            <div class="form-group">
+              <label>Markas</label>
+              <select class="form-control select2" name="markas" required>
+                <option selected disabled>-- Pilih Markas --</option>
+                <?php foreach ($markas as $data) { ?>
+                <option value="<?= $data->id ?>"><?= $data->name ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" name="username" placeholder="Username..."  class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" placeholder="Password..."  class="form-control" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        <?php echo form_close(); ?>   
+      </div>
+    </div>
+  </div>
+  <?php foreach ($user_list as $data) { ?>
+  <div class="modal fade" id="useredit<?= $data->id_user ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <?php echo form_open_multipart('admin/edit_user');?>
+          <input type="hidden" name="id" value="<?= $data->id_user?>" >
+          <div class="form-group">
+              <label>Markas</label>
+              <input type="text" readonly value="<?= $data->name?>"  class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" name="username" placeholder="Username..." value="<?= $data->username?>"  class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" placeholder="Password..." value="<?= $data->password?>" class="form-control" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        <?php echo form_close(); ?>   
+      </div>
+    </div>
+  </div>
+  <?php } ?>
+<?php } ?>
 
   <!-- General JS Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -100,7 +177,7 @@
   <!-- JS Libraies -->
   <script src="<?= base_url('assets/') ?>node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
   <script src="<?= base_url('assets/') ?>node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-
+  <script src="<?= base_url('assets/') ?>node_modules/summernote/dist/summernote-bs4.js"></script>
   <!-- Template JS File -->
   <script src="<?= base_url('assets/') ?>assets/js/scripts.js"></script>
   <script src="<?= base_url('assets/') ?>assets/js/custom.js"></script>

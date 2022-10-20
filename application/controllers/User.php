@@ -112,6 +112,7 @@ class User extends CI_Controller {
 			redirect(base_url('user/peserta'));
 		}
   }
+
   public function hapus_peserta($id)
 	{
     if($this->session->userdata('markas') == 12){

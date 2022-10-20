@@ -18,7 +18,7 @@ class Auth extends CI_Controller {
 		
 		$where = array(
 			'username'=>$user,
-			'password'=>md5($pass)
+			'password'=>$pass
 		);
 		$cek = $this->Model_page->cek_login('tbl_user',$where)->num_rows();
 		$hasil= $this->Model_page->cek_login('tbl_user',$where)->result();
@@ -53,6 +53,22 @@ class Auth extends CI_Controller {
 			redirect(base_url());
 		}
 	}
+
+  function ubah_akun()
+	{
+    if($this->session->userdata('status')!="login"){
+      redirect(base_url());
+		}
+    $data = array(
+      'username' => $this->input->post('username'),
+      'password' => $this->input->post('password'),
+      'log_user' => $this->session->userdata('user'),
+    );
+    $this->db->where('id_user', $this->session->userdata('id_peserta'));
+    $this->db->update('tbl_user' ,$data);
+    redirect(base_url('auth/logout')); 
+	}
+	
 
 	function logout()
 	{
